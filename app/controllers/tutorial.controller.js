@@ -3,7 +3,14 @@ const Tutorial = db.tutorials;
 const Op = db.Sequelize.Op;
 
 // create and save a new tutorial 
-exports.create = (req, res) => {};
+exports.create = (req, res) => {
+    // variable request
+    if(!req.body.title) {
+        res.status(400).send({
+            message: 'Content'
+        })
+    }
+};
 
 // retrieve all tutorials from the database
 exports.findAll = (req, res) => {};

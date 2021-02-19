@@ -4,6 +4,7 @@ module.exports = {
     USER: 'root',
     PASSWORD:  'CVZ02RgRe6gILny2',
     DB: 'nodejs_db',
+    dialect: 'mysql',
     pool: {
         max: 5,
         min: 0,
