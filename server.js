@@ -21,6 +21,11 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to Robb's Application."});
 });
 
+// tutorial apis
+require('./app/routes/tutorial.routes')(app);
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8084;
 app.listen(PORT, () => {
@@ -28,8 +33,28 @@ app.listen(PORT, () => {
 });
 
 const db = require("./app/models");
+const Role = db.role;
 //db.sequelize.sync();
 // in developpement mode, we can drop and re-sync
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: true}).then(() => {
     console.log('Drop and re-sync db.');
-})
+    initial();
+});
+
+function initial() {
+    Role.create({
+        id: 1,
+        name: "USER"
+    });
+
+    Role.create({
+        id: 2,
+        name: "MODERATOR"
+    });
+
+    Role.create({
+        id: 3,
+        name: "ADMIN"
+    });
+}
+

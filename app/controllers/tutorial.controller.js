@@ -106,7 +106,30 @@ exports.delete = (req, res) => {
 };
 
 // delete all tutorials
-exports.deleteAll = (req, res) => {};
+exports.deleteAll = (req, res) => {
+    Tutorial.destroy({
+        where: {},
+        truncate: false
+    })
+        .then(nums => {
+            res.send({ message: `${nums} Tutorials were deleted successfully!`});
+        })
+        .catch( err => {
+            res.status(500).send({
+                message: err.message || 'Some error occurred while removing all tutorial.'
+            });
+        });
+};
 
 // find all published tutorials
-exports.findAllPublished = (req, res) => {};
+exports.findAllPublished = (req, res) => {
+    Tutorial.findAll({ where: {published: true }})
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send( {
+                message: err.message || 'Some error occured while retrieving tutorials.'
+            });
+        });
+};
